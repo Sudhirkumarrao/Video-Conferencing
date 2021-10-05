@@ -10,11 +10,13 @@ import { RoomComponent } from './room/room.component';
 import { FormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { VideoRoomComponent } from './video-room/video-room.component';
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    RoomComponent
+    RoomComponent,
+    VideoRoomComponent
   ],
   imports: [
     BrowserModule,

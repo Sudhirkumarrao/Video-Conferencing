@@ -1,0 +1,51 @@
+<div class="sidenav">
+  <div class="chat-body" style="min-height: 500px; overflow-y: auto;">
+    <div class="speech-wrapper" style="min-height: 500px; overflow-y: auto;">
+      <div class="bubble {{message.class}}" *ngFor="let message of messages">
+        <div class="txt">
+          <p class="name {{message.class}}">{{message.userName}}</p>
+          <p class="message">{{message.message}}</p>
+        </div>
+        <div class="bubble-arrow {{message.class}}"></div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-input-box">
+    <div class="input-group mb-3">
+      <input type="text" (keydown)='sendMessage($event)' class="form-control" id="msg" [(ngModel)]='message'>
+      <button type="button" (click)='send()'><fa-icon [icon]="faPaperPlane"></fa-icon></button>
+    </div>
+  </div>
+</div>
+<div class="container mr-top-70 border-solid">
+  <div class="row">
+    <div class="col-md-4 border-solid" *ngFor="let video of videos">
+      <div class="card" style="width: 18rem;">
+        <video class="card-img-top"
+          controls='true'
+          [srcObject]="video.srcObject"
+          (loadedmetadata)="onLoadedMetadata($event)"
+          [muted]="video.muted">
+        </video>
+        <div class="card-body">
+          <h5 class="card-title" *ngIf="video.userId !== currentUserId; else currentUserVideoLabel">{{ video.userName }}</h5>
+          <ng-template #currentUserVideoLabel>
+            <h5 class="card-title">You</h5>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="margin: 25px;">
+  <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4" style="margin-left: 100px;">
+      <button (click)='muteUnmute()'><fa-icon [icon]="icon1"></fa-icon></button>
+      <button (click)='shareScreen()'><fa-icon [icon]="icon2"></fa-icon></button>
+      <button (click)='hideVideo()'><fa-icon [icon]="icon3"></fa-icon></button>
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+</div>
