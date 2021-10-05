@@ -1,0 +1,62 @@
+<!-- <div class="video-grid">
+  <div *ngFor="let video of videos">
+    <span *ngIf="video.userId !== currentUserId; else currentUserVideoLabel">{{ video.userId }}</span>
+    <ng-template #currentUserVideoLabel>
+      <span>You</span>
+    </ng-template>
+    <video
+      [srcObject]="video.srcObject"
+      (loadedmetadata)="onLoadedMetadata($event)"
+      [muted]="video.muted">
+    </video>
+
+    <div>
+      <button (click)='muteVideo(video)' *ngIf="video.userId == currentUserId">Mute</button>
+      <button (click)='hideVideo(video)' *ngIf="video.userId == currentUserId">Hide Video</button>
+    </div>
+  </div>
+</div> -->
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-4" *ngFor="let video of videos">
+      <div class="card" style="width: 18rem;">
+        <video class="card-img-top"
+          [srcObject]="video.srcObject"
+          (loadedmetadata)="onLoadedMetadata($event)"
+          [muted]="video.muted">
+        </video>
+        <div class="card-body">
+          <h5 class="card-title" *ngIf="video.userId !== currentUserId; else currentUserVideoLabel">{{ video.userName }}</h5>
+          <ng-template #currentUserVideoLabel>
+            <h5 class="card-title">You</h5>
+          </ng-template>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+        <div class="box box-warning direct-chat direct-chat-warning">
+            <div class="box-header with-border">
+                <h3 class="box-title">Chat Messages</h3>
+                <div class="box-tools pull-right"> <span data-toggle="tooltip" title="" class="badge bg-yellow" data-original-title="3 New Messages">20</span> <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i> </button> <button type="button" class="btn btn-box-tool" data-toggle="tooltip" title="" data-widget="chat-pane-toggle" data-original-title="Contacts"> <i class="fa fa-comments"></i></button> <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i> </button> </div>
+            </div>
+            <div class="box-body">
+                <div class="direct-chat-messages" id="chatMessage">
+                </div>
+            </div>
+            <div class="box-footer">
+                <form action="#" method="post">
+                    <div class="input-group"> <input type="text" [(ngModel)]="message" name="message" placeholder="Type Message ..." class="form-control"> <span class="input-group-btn"> <button type="button" class="btn btn-warning btn-flat" (click)='send()'>Send</button> </span> </div>
+                </form>
+            </div>
+        </div>
+    </div>
+  </div>
+  <div class="row">
+    <div>
+      <i class="fa-solid fa-microphone-slash"></i>
+      <button (click)='muteVideo()' ><i class="fa-solid fa-microphone-slash"></i> Mute</button>
+      <button (click)='hideVideo()' >Hide Video</button>
+    </div>
+  </div>
+</div>
