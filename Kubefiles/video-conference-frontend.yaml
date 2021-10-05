@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: video-conference-frontend
+  labels:
+    app: video-conference-frontend
+spec:
+  selector:
+    app: video-conference-frontend
+    tier: frontend
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: video-conference-frontend
+  labels:
+    app: video-conference-frontend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: video-conference-frontend
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: video-conference-frontend
+        tier: frontend
+    spec:
+      containers:
+        - name: video-conference-frontend
+          image: 403171549694.dkr.ecr.ap-south-1.amazonaws.com/covid-kibana:v8-frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              memory: "2048Mi"
+              cpu: "1024m"
+            limits:
+              memory: "2048Mi"
+              cpu: "1024m"

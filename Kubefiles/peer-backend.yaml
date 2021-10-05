@@ -1,0 +1,52 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: peer-backend
+  labels:
+    app: peer-backend
+spec:
+  selector:
+    app: peer-backend
+    tier: backend
+  ports:
+    - port: 3000
+      targetPort: 3000
+      protocol: TCP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: peer-backend
+  labels:
+    app: peer-backend
+spec:
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+  minReadySeconds: 5
+  selector:
+    matchLabels:
+      app: peer-backend
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: peer-backend
+        tier: backend
+    spec:
+      containers:
+        - name: peer-backend
+          image: 403171549694.dkr.ecr.ap-south-1.amazonaws.com/covid-kibana:v7-peer
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 3000
+          resources:
+            requests:
+              memory: "2Gi"
+              cpu: "1024m"
+            limits:
+              memory: "2Gi"
+              cpu: "1024m"
